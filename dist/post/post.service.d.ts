@@ -2,18 +2,26 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Model } from 'mongoose';
 import { PostDocument } from './entities/post.entity';
+import { PaginationService } from 'src/pagination/pagination.service';
 export declare class PostService {
+    private readonly paginationService;
     private postModel;
-    constructor(postModel: Model<PostDocument>);
+    constructor(paginationService: PaginationService, postModel: Model<PostDocument>);
     create(createPostDto: CreatePostDto): Promise<{
         data: any;
         status: number;
         message: string;
     }>;
-    findAll(): Promise<{
+    findAll(queryParams: any): Promise<{
         data: any;
-        status: number;
-        message: string;
+        pagination: {
+            total: any;
+            limit: any;
+            page: any;
+            totalPages: number;
+            hasPrevPage: boolean;
+            hasNextPage: boolean;
+        };
     }>;
     findOne(id: string): Promise<{
         data: any;

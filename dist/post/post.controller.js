@@ -24,8 +24,8 @@ let PostController = class PostController {
     create(createPostDto) {
         return this.postService.create(createPostDto);
     }
-    findAll() {
-        return this.postService.findAll();
+    findAll(queryParams) {
+        return this.postService.findAll(queryParams);
     }
     findOne(id) {
         return this.postService.findOne(id);
@@ -47,8 +47,9 @@ __decorate([
 ], PostController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], PostController.prototype, "findAll", null);
 __decorate([

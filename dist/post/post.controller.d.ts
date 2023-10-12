@@ -9,10 +9,16 @@ export declare class PostController {
         status: number;
         message: string;
     }>;
-    findAll(): Promise<{
+    findAll(queryParams: any): Promise<{
         data: any;
-        status: number;
-        message: string;
+        pagination: {
+            total: any;
+            limit: any;
+            page: any;
+            totalPages: number;
+            hasPrevPage: boolean;
+            hasNextPage: boolean;
+        };
     }>;
     findOne(id: string): Promise<{
         data: any;

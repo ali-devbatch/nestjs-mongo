@@ -8,6 +8,7 @@ import {
   Delete,
   ValidationPipe,
   UsePipes,
+  Query,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -24,8 +25,9 @@ export class PostController {
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
+  findAll(@Query() queryParams) {
+    // Pass the queryParams to the service to handle pagination
+    return this.postService.findAll(queryParams);
   }
 
   @Get(':id')
