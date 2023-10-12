@@ -17,8 +17,10 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const post_entity_1 = require("./entities/post.entity");
+const pagination_service_1 = require("../pagination/pagination.service");
 let PostService = class PostService {
-    constructor(postModel) {
+    constructor(paginationService, postModel) {
+        this.paginationService = paginationService;
         this.postModel = postModel;
     }
     async create(createPostDto) {
@@ -33,21 +35,9 @@ let PostService = class PostService {
             return { data: error.message, status: 500, message: 'post not created' };
         }
     }
-    async findAll() {
-        try {
-            const data = await this.postModel.find();
-            if (!data) {
-                return {
-                    data: data,
-                    status: 404,
-                    message: 'there is no registered post',
-                };
-            }
-            return { data: data, status: 200, message: 'posts found successfully' };
-        }
-        catch (error) {
-            return { data: error.message, status: 500, message: 'post not found' };
-        }
+    async findAll(queryParams) {
+        const queryBuilder = this.postModel.find();
+        return this.paginationService.paginate(queryBuilder, queryParams);
     }
     async findOne(id) {
         try {
@@ -99,7 +89,8 @@ let PostService = class PostService {
 exports.PostService = PostService;
 exports.PostService = PostService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(post_entity_1.Post.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(post_entity_1.Post.name)),
+    __metadata("design:paramtypes", [pagination_service_1.PaginationService,
+        mongoose_2.Model])
 ], PostService);
 //# sourceMappingURL=post.service.js.map

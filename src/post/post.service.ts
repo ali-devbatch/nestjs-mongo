@@ -4,10 +4,15 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Post, PostDocument } from './entities/post.entity';
+import { PaginationService } from 'src/pagination/pagination.service';
 
 @Injectable()
 export class PostService {
-  constructor(@InjectModel(Post.name) private postModel: Model<PostDocument>) {}
+  constructor(
+    private readonly paginationService: PaginationService,
+    @InjectModel(Post.name) private postModel: Model<PostDocument>,
+  ) {}
+
   // to add post
   async create(createPostDto: CreatePostDto) {
     try {
@@ -21,21 +26,10 @@ export class PostService {
     }
   }
 
-  // to get all posts
-  async findAll() {
-    try {
-      const data = await this.postModel.find(); // Assuming you want to retrieve all posts
-      if (!data) {
-        return {
-          data: data,
-          status: 404,
-          message: 'there is no registered post',
-        }; // 404 Not Found
-      }
-      return { data: data, status: 200, message: 'posts found successfully' }; // 200 OK
-    } catch (error) {
-      return { data: error.message, status: 500, message: 'post not found' };
-    }
+  // to get all posts with pagination
+  async findAll(queryParams) {
+    const queryBuilder = this.postModel.find(); // Build your query here
+    return this.paginationService.paginate(queryBuilder, queryParams);
   }
 
   // to get post by id
