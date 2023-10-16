@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SharedModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const blog_entity_1 = require("../blog/entities/blog.entity");
 const post_entity_1 = require("../post/entities/post.entity");
 const user_entity_1 = require("../user/entities/user.entity");
 let SharedModule = class SharedModule {
@@ -20,6 +21,7 @@ exports.SharedModule = SharedModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: user_entity_1.User.name, schema: user_entity_1.UserSchema },
                 { name: post_entity_1.Post.name, schema: post_entity_1.PostSchema },
+                { name: blog_entity_1.Blog.name, schema: blog_entity_1.BlogSchema },
             ]),
         ],
         exports: [mongoose_1.MongooseModule],

@@ -12,6 +12,7 @@ const post_service_1 = require("./post.service");
 const post_controller_1 = require("./post.controller");
 const shared_module_1 = require("../shared/shared.module");
 const pagination_service_1 = require("../pagination/pagination.service");
+const auth_module_1 = require("../auth/auth.module");
 let PostModule = class PostModule {
 };
 exports.PostModule = PostModule;
@@ -19,7 +20,7 @@ exports.PostModule = PostModule = __decorate([
     (0, common_1.Module)({
         controllers: [post_controller_1.PostController],
         providers: [post_service_1.PostService, pagination_service_1.PaginationService],
-        imports: [shared_module_1.SharedModule],
+        imports: [auth_module_1.AuthModule, shared_module_1.SharedModule],
     })
 ], PostModule);
 //# sourceMappingURL=post.module.js.map
