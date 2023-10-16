@@ -40,4 +40,25 @@
  - jwt-strategy will be injected to providers of auth module.
  - auth service will get login and sign up.
  - @UseGuards(AuthGuard()) at any controller method for authentication.
- - 
+
+### Postman environment and collection 
+ - postman collection is available
+ - set environment variable 
+   - {{base_url}}
+ - to sign in (login) set bearer_token and {{access_token}} in value tab 
+ - in test tab of sign in(login request) which is after (pre request Script) paste this code 
+   - pm.test("Response should have a token", function () {
+    pm.response.to.have.status(200);
+    var jsonData = pm.response.json();
+    pm.environment.set("access_token", jsonData.token);
+     });
+  - jsonData.token this should be the same name which will get from response (token)
+  - this will set the access_token variable dynamically.
+  - now go to the collection and edit the whole collection and set the pre request script and paste that code
+        // check request names to not apply the authorization like login and register *(request names)
+       if (pm.info.requestName !== 'login') {
+       pm.request.headers.add({
+        key: 'Authorization',
+        value: 'Bearer ' + pm.environment.get('access_token')
+        });
+           }
