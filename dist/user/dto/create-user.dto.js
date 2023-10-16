@@ -24,4 +24,10 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Email should not be empty' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)({ message: 'Password should be a string' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Password should not be empty' }),
+    (0, class_validator_1.IsStrongPassword)({}, { message: 'Password should be strong' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "password", void 0);
 //# sourceMappingURL=create-user.dto.js.map

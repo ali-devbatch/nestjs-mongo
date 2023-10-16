@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const post_service_1 = require("./post.service");
 const create_post_dto_1 = require("./dto/create-post.dto");
 const update_post_dto_1 = require("./dto/update-post.dto");
+const passport_1 = require("@nestjs/passport");
 let PostController = class PostController {
     constructor(postService) {
         this.postService = postService;
@@ -40,6 +41,7 @@ let PostController = class PostController {
 exports.PostController = PostController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_post_dto_1.CreatePostDto]),
