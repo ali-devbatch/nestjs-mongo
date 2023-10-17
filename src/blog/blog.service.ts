@@ -5,7 +5,7 @@ import { PaginationService } from 'src/pagination/pagination.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Blog, BlogDocument } from './entities/blog.entity';
 import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/user/entities/user.entity';
+import { User, UserDocument } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class BlogService {

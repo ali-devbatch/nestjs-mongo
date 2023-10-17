@@ -2,9 +2,9 @@
 
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from 'src/auth/entities/user.entity';
 import { Blog, BlogSchema } from 'src/blog/entities/blog.entity';
 import { Post, PostSchema } from 'src/post/entities/post.entity';
-import { User, UserSchema } from 'src/user/entities/user.entity';
 
 @Module({
   imports: [

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlogSchema = exports.Blog = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const user_entity_1 = require("../../user/entities/user.entity");
+const user_entity_1 = require("../../auth/entities/user.entity");
 let Blog = class Blog {
 };
 exports.Blog = Blog;

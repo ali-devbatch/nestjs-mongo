@@ -19,7 +19,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const passport_1 = require("@nestjs/passport");
 const mongoose_2 = require("mongoose");
 const passport_jwt_1 = require("passport-jwt");
-const user_entity_1 = require("../user/entities/user.entity");
+const user_entity_1 = require("./entities/user.entity");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(userModel, configService) {
         super({

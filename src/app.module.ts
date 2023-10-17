@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
-import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { PostModule } from './post/post.module';
 import { BlogModule } from './blog/blog.module';
@@ -21,7 +20,6 @@ import { MyConfigModule } from './my-config/my-config.module';
     DatabaseModule,
     SharedModule,
     PostModule,
-    UserModule,
     BlogModule,
     AuthModule,
     ConfigModule,

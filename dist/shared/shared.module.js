@@ -9,9 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SharedModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const user_entity_1 = require("../auth/entities/user.entity");
 const blog_entity_1 = require("../blog/entities/blog.entity");
 const post_entity_1 = require("../post/entities/post.entity");
-const user_entity_1 = require("../user/entities/user.entity");
 let SharedModule = class SharedModule {
 };
 exports.SharedModule = SharedModule;

@@ -30,7 +30,7 @@ export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
     registerUser(signUpDto: SignUpDto): Promise<{
-        data: import("mongoose").Document<unknown, {}, import("../user/entities/user.entity").User> & import("../user/entities/user.entity").User & {
+        data: import("mongoose").Document<unknown, {}, import("./entities/user.entity").User> & import("./entities/user.entity").User & {
             _id: import("mongoose").Types.ObjectId;
         };
         status: number;
