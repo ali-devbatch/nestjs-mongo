@@ -23,7 +23,7 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { HydratedDocument, Types } from 'mongoose';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/auth/entities/user.entity';
 export declare class Blog {
     title: string;
     description: string;

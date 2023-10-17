@@ -24,9 +24,9 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/user/entities/user.entity';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signUp.dto';
+import { User } from './entities/user.entity';
 export declare class AuthService {
     private userModel;
     private jwtService;

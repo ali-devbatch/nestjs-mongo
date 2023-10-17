@@ -24,7 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ConfigService } from '@nestjs/config';
 import { Model } from 'mongoose';
-import { User } from 'src/user/entities/user.entity';
+import { User } from './entities/user.entity';
 declare const JwtStrategy_base: new (...args: any[]) => any;
 export declare class JwtStrategy extends JwtStrategy_base {
     private userModel;

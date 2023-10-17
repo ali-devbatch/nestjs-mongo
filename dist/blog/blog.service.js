@@ -18,7 +18,7 @@ const pagination_service_1 = require("../pagination/pagination.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const blog_entity_1 = require("./entities/blog.entity");
 const mongoose_2 = require("mongoose");
-const user_entity_1 = require("../user/entities/user.entity");
+const user_entity_1 = require("../auth/entities/user.entity");
 let BlogService = class BlogService {
     constructor(paginationService, blogModel, userModel) {
         this.paginationService = paginationService;

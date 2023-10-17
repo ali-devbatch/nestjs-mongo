@@ -12,7 +12,6 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const database_module_1 = require("./database/database.module");
-const user_module_1 = require("./user/user.module");
 const shared_module_1 = require("./shared/shared.module");
 const post_module_1 = require("./post/post.module");
 const blog_module_1 = require("./blog/blog.module");
@@ -31,7 +30,6 @@ exports.AppModule = AppModule = __decorate([
             database_module_1.DatabaseModule,
             shared_module_1.SharedModule,
             post_module_1.PostModule,
-            user_module_1.UserModule,
             blog_module_1.BlogModule,
             auth_module_1.AuthModule,
             config_1.ConfigModule,

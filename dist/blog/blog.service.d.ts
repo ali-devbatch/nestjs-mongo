@@ -3,7 +3,7 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 import { PaginationService } from 'src/pagination/pagination.service';
 import { BlogDocument } from './entities/blog.entity';
 import { Model } from 'mongoose';
-import { UserDocument } from 'src/user/entities/user.entity';
+import { UserDocument } from 'src/auth/entities/user.entity';
 export declare class BlogService {
     private readonly paginationService;
     private blogModel;

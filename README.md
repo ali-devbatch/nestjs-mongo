@@ -55,8 +55,8 @@
   - jsonData.token this should be the same name which will get from response (token)
   - this will set the access_token variable dynamically.
   - now go to the collection and edit the whole collection and set the pre request script and paste that code
-        // check request names to not apply the authorization like login and register *(request names)
-       if (pm.info.requestName !== 'login') {
+   -  // check request names to not apply the authorization like login and register *(request names)
+     - if (pm.info.requestName !== 'login') {
        pm.request.headers.add({
         key: 'Authorization',
         value: 'Bearer ' + pm.environment.get('access_token')
