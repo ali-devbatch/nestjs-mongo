@@ -10,6 +10,7 @@ import {
   UsePipes,
   Query,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -23,8 +24,9 @@ export class PostController {
 
   @Post()
   @UseGuards(AuthGuard())
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postService.create(createPostDto);
+  create(@Body() createPostDto: CreatePostDto, @Request() req) {
+    const user = req.user;
+    return this.postService.create(createPostDto, user);
   }
 
   @Get()

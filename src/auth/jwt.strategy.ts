@@ -23,6 +23,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const { id } = payload;
 
     const user = await this.userModel.findById(id);
+    // Omit the 'password' field from the user object so that the password should not be returned to user
+    user.password = undefined;
 
     if (!user) {
       throw new UnauthorizedException('Login first to access this endpoint.');

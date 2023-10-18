@@ -7,7 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { PostModule } from './post/post.module';
 import { BlogModule } from './blog/blog.module';
 import { ConfigModule } from '@nestjs/config';
-import { MyConfigModule } from './my-config/my-config.module';
+import { MyConfigModule } from './config/config.module';
 
 @Module({
   imports: [

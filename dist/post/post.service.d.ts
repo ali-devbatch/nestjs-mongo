@@ -7,7 +7,7 @@ export declare class PostService {
     private readonly paginationService;
     private postModel;
     constructor(paginationService: PaginationService, postModel: Model<PostDocument>);
-    create(createPostDto: CreatePostDto): Promise<{
+    create(createPostDto: CreatePostDto, user: any): Promise<{
         data: any;
         status: number;
         message: string;

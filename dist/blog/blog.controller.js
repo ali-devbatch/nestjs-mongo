@@ -22,8 +22,9 @@ let BlogController = class BlogController {
     constructor(blogService) {
         this.blogService = blogService;
     }
-    create(createBlogDto) {
-        return this.blogService.create(createBlogDto);
+    create(createBlogDto, req) {
+        const userId = req.user.id;
+        return this.blogService.create(createBlogDto, userId);
     }
     findAll(queryParams) {
         return this.blogService.findAll(queryParams);
@@ -43,8 +44,9 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_blog_dto_1.CreateBlogDto]),
+    __metadata("design:paramtypes", [create_blog_dto_1.CreateBlogDto, Object]),
     __metadata("design:returntype", void 0)
 ], BlogController.prototype, "create", null);
 __decorate([

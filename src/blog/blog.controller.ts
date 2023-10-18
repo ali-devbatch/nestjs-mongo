@@ -10,6 +10,7 @@ import {
   ValidationPipe,
   UsePipes,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
@@ -23,8 +24,10 @@ export class BlogController {
 
   @Post()
   @UseGuards(AuthGuard())
-  create(@Body() createBlogDto: CreateBlogDto) {
-    return this.blogService.create(createBlogDto);
+  create(@Body() createBlogDto: CreateBlogDto, @Request() req) {
+    // Access the authenticated user's ID
+    const userId = req.user.id;
+    return this.blogService.create(createBlogDto, userId);
   }
 
   @Get()
@@ -32,11 +35,6 @@ export class BlogController {
     // Pass the queryParams to the service to handle pagination
     return this.blogService.findAll(queryParams);
   }
-
-  // @Get('/blog-of-user/:userId')
-  // async findBlogsByUserId(@Param('userId') userId: string) {
-  //   return this.blogService.findBlogsOfSingleUser(userId);
-  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

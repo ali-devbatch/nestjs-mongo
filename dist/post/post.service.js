@@ -23,12 +23,17 @@ let PostService = class PostService {
         this.paginationService = paginationService;
         this.postModel = postModel;
     }
-    async create(createPostDto) {
+    async create(createPostDto, user) {
+        const { title, description } = createPostDto;
         try {
-            const data = new this.postModel();
-            data.title = createPostDto.title;
-            data.description = createPostDto.description;
+            const data = new this.postModel({
+                title: title,
+                description: description,
+                postedBy: user,
+            });
             await data.save();
+            user.posts.push(data._id);
+            await user.save();
             return { data: data, status: 200, message: 'post created successfully' };
         }
         catch (error) {
@@ -41,7 +46,10 @@ let PostService = class PostService {
     }
     async findOne(id) {
         try {
-            const data = await this.postModel.findById(id);
+            const data = await this.postModel.findById(id).populate({
+                path: 'postedBy',
+                select: 'name email',
+            });
             if (!data) {
                 return {
                     data: data,

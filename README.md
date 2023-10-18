@@ -1,3 +1,7 @@
+### NEST Architecture
+- Nest is IOC(Inversion of Control) container based which means we provide nest to take control of instances and dependencies.
+- in express we make instances like new Date() and so we take control by ourself , due to IOC nest take control for instances and dependencies and manage them 
+
 ### database module
 
 - database module will be separate and import it in app module
@@ -62,3 +66,16 @@
         value: 'Bearer ' + pm.environment.get('access_token')
         });
            }
+
+### reference of another collection
+  - post collection will save the whole user data by getting data from token of user 
+  - blog collection will save only the user id extracting from the token 
+
+### dependencies injection
+  - any obj,class or service which we want to inject in module etc will be called dependency or provider
+  - scope will be at module level if we want to use that provider or dependency in other modules we have to export it , provide in exports array
+
+
+### use cases (collection references)
+ - users collection will get all the posts created by himself/herself
+ - blog collection will get the user id that who created that blog

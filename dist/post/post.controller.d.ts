@@ -4,7 +4,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export declare class PostController {
     private readonly postService;
     constructor(postService: PostService);
-    create(createPostDto: CreatePostDto): Promise<{
+    create(createPostDto: CreatePostDto, req: any): Promise<{
         data: any;
         status: number;
         message: string;
