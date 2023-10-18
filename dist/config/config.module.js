@@ -17,4 +17,4 @@ exports.MyConfigModule = MyConfigModule = __decorate([
         imports: [config_1.ConfigModule.forRoot()],
     })
 ], MyConfigModule);
-//# sourceMappingURL=my-config.module.js.map
+//# sourceMappingURL=config.module.js.map

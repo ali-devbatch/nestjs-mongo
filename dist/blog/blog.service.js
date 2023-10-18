@@ -25,13 +25,20 @@ let BlogService = class BlogService {
         this.blogModel = blogModel;
         this.userModel = userModel;
     }
-    async create(createBlogDto) {
+    async create(createBlogDto, userId) {
+        const { blogTitle, blogDescription } = createBlogDto;
         try {
-            const data = new this.blogModel();
-            data.title = createBlogDto.blogTitle;
-            data.description = createBlogDto.blogDescription;
-            await data.save();
-            return { data: data, status: 200, message: 'blog created successfully' };
+            const newBlog = new this.blogModel({
+                title: blogTitle,
+                description: blogDescription,
+                postedBy: userId,
+            });
+            await newBlog.save();
+            return {
+                data: newBlog,
+                status: 200,
+                message: 'blog created successfully',
+            };
         }
         catch (error) {
             return { data: error.message, status: 500, message: 'blog not created' };

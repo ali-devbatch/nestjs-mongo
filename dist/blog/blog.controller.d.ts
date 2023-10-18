@@ -4,7 +4,7 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 export declare class BlogController {
     private readonly blogService;
     constructor(blogService: BlogService);
-    create(createBlogDto: CreateBlogDto): Promise<{
+    create(createBlogDto: CreateBlogDto, req: any): Promise<{
         data: any;
         status: number;
         message: string;

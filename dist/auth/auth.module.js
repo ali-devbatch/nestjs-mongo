@@ -17,8 +17,8 @@ const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const shared_module_1 = require("../shared/shared.module");
 const config_1 = require("@nestjs/config");
-const my_config_module_1 = require("../my-config/my-config.module");
 const jwt_strategy_1 = require("./jwt.strategy");
+const config_module_1 = require("../config/config.module");
 let AuthModule = class AuthModule {
     constructor(configService) {
         this.configService = configService;
@@ -30,7 +30,7 @@ exports.AuthModule = AuthModule = __decorate([
         imports: [
             passport_1.PassportModule.register({ defaultStrategy: 'jwt' }),
             jwt_1.JwtModule.registerAsync({
-                imports: [my_config_module_1.MyConfigModule],
+                imports: [config_module_1.MyConfigModule],
                 useFactory: (configService) => ({
                     secret: configService.get('JWT_SECRET'),
                     signOptions: {

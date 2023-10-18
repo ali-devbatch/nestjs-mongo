@@ -32,6 +32,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
     async validate(payload) {
         const { id } = payload;
         const user = await this.userModel.findById(id);
+        user.password = undefined;
         if (!user) {
             throw new common_1.UnauthorizedException('Login first to access this endpoint.');
         }

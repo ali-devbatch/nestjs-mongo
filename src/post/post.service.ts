@@ -14,12 +14,19 @@ export class PostService {
   ) {}
 
   // to add post
-  async create(createPostDto: CreatePostDto) {
+  async create(createPostDto: CreatePostDto, user) {
+    const { title, description } = createPostDto;
     try {
-      const data = new this.postModel();
-      data.title = createPostDto.title;
-      data.description = createPostDto.description;
+      const data = new this.postModel({
+        title: title,
+        description: description,
+        postedBy: user,
+      });
       await data.save();
+      // Add the post's _id to the user's 'posts' array
+      user.posts.push(data._id);
+      // Save the updated user to the database
+      await user.save();
       return { data: data, status: 200, message: 'post created successfully' }; // 200 OK
     } catch (error) {
       return { data: error.message, status: 500, message: 'post not created' };
@@ -32,10 +39,13 @@ export class PostService {
     return this.paginationService.paginate(queryBuilder, queryParams);
   }
 
-  // to get post by id
+  // to get post by id and populating this
   async findOne(id: string) {
     try {
-      const data = await this.postModel.findById(id);
+      const data = await this.postModel.findById(id).populate({
+        path: 'postedBy', // field name which is in schema
+        select: 'name email', // Select the fields you want to populate
+      });
       if (!data) {
         return {
           data: data,

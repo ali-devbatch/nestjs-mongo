@@ -9,7 +9,7 @@ export declare class BlogService {
     private blogModel;
     private userModel;
     constructor(paginationService: PaginationService, blogModel: Model<BlogDocument>, userModel: Model<UserDocument>);
-    create(createBlogDto: CreateBlogDto): Promise<{
+    create(createBlogDto: CreateBlogDto, userId: string): Promise<{
         data: any;
         status: number;
         message: string;

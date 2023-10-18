@@ -16,13 +16,20 @@ export class BlogService {
   ) {}
 
   // to add blog
-  async create(createBlogDto: CreateBlogDto) {
+  async create(createBlogDto: CreateBlogDto, userId: string) {
+    const { blogTitle, blogDescription } = createBlogDto;
     try {
-      const data = new this.blogModel();
-      data.title = createBlogDto.blogTitle;
-      data.description = createBlogDto.blogDescription;
-      await data.save();
-      return { data: data, status: 200, message: 'blog created successfully' }; // 200 OK
+      const newBlog = new this.blogModel({
+        title: blogTitle,
+        description: blogDescription,
+        postedBy: userId,
+      });
+      await newBlog.save();
+      return {
+        data: newBlog,
+        status: 200,
+        message: 'blog created successfully',
+      }; // 200 OK
     } catch (error) {
       return { data: error.message, status: 500, message: 'blog not created' };
     }
@@ -50,37 +57,6 @@ export class BlogService {
       return { data: error.message, status: 500, message: 'blog not found' };
     }
   }
-
-  // // Find blogs posted by a single user
-  // async findBlogsOfSingleUser(id: string) {
-  //   try {
-  //     // First, find the user by their ID
-  //     const user = await this.userModel.findById(id);
-
-  //     if (!user) {
-  //       return {
-  //         data: null,
-  //         status: 404,
-  //         message: 'User not found',
-  //       };
-  //     }
-
-  //     // Once you have the user, use their ID to query blogs posted by that user
-  //     const blogs = await this.blogModel.find({ user: id });
-
-  //     return {
-  //       data: blogs,
-  //       status: 200,
-  //       message: 'Blogs found successfully',
-  //     };
-  //   } catch (error) {
-  //     return {
-  //       data: error.message,
-  //       status: 500,
-  //       message: 'Failed to find blogs',
-  //     };
-  //   }
-  // }
 
   // to update blog by id
   async update(id: string, updateBlogDto: UpdateBlogDto) {
