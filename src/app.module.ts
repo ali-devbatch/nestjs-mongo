@@ -10,11 +10,19 @@ import { ConfigModule } from '@nestjs/config';
 import { MyConfigModule } from './config/config.module';
 import { UserModule } from './user/user.module';
 
+// to add env variables dynamically
+const envFilePath =
+  process.env.NODE_ENV === 'production'
+    ? '.production.env'
+    : process.env.NODE_ENV === 'staging'
+    ? '.staging.env'
+    : '.development.env';
+
 @Module({
   imports: [
     // for .env files
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath,
       isGlobal: true,
     }),
     // other modules
