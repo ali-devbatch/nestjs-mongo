@@ -9,37 +9,53 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaginationService = void 0;
 const common_1 = require("@nestjs/common");
 let PaginationService = class PaginationService {
-    paginate(queryBuilder, options) {
+    async paginate(resultData, options) {
         const { page = 1, limit = 10, sort } = options;
         const skip = (page - 1) * limit;
-        const sorting = {};
+        const clonedResultData = [...resultData];
         if (sort) {
+            const sorting = {};
             const sortFields = sort.split(',');
             sortFields.forEach((sortField) => {
                 const [field, order] = sortField.split(':');
                 sorting[field] = order === 'desc' ? -1 : 1;
             });
-            queryBuilder.sort(sorting);
+            clonedResultData.sort((a, b) => {
+                for (const field of Object.keys(sorting)) {
+                    const sortOrder = sorting[field];
+                    if (a[field] < b[field])
+                        return -1 * sortOrder;
+                    if (a[field] > b[field])
+                        return 1 * sortOrder;
+                }
+                return 0;
+            });
         }
-        const totalCountPromise = queryBuilder.clone().count().exec();
-        const resultsPromise = queryBuilder.skip(skip).limit(limit).exec();
-        return Promise.all([totalCountPromise, resultsPromise]).then(([count, results]) => {
-            const total = count;
-            const totalPages = Math.ceil(total / limit);
-            const hasPrevPage = page > 1;
-            const hasNextPage = page < totalPages;
+        const total = clonedResultData.length;
+        const data = clonedResultData.slice(skip, skip + limit);
+        const totalPages = Math.ceil(total / limit);
+        const hasPrevPage = page > 1;
+        const hasNextPage = page < totalPages;
+        if (data.length === 0) {
             return {
-                data: results,
-                pagination: {
-                    total,
-                    limit,
-                    page,
-                    totalPages,
-                    hasPrevPage,
-                    hasNextPage,
-                },
+                data: [],
+                status: 404,
+                message: 'no data found',
             };
-        });
+        }
+        return {
+            data: data,
+            status: 200,
+            message: 'data found',
+            pagination: {
+                total,
+                limit,
+                page,
+                totalPages,
+                hasPrevPage,
+                hasNextPage,
+            },
+        };
     }
 };
 exports.PaginationService = PaginationService;

@@ -41,8 +41,8 @@ let PostService = class PostService {
         }
     }
     async findAll(queryParams) {
-        const queryBuilder = this.postModel.find();
-        return this.paginationService.paginate(queryBuilder, queryParams);
+        const resultData = await this.postModel.find();
+        return this.paginationService.paginate(resultData, queryParams);
     }
     async findOne(id) {
         try {

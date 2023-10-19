@@ -8,6 +8,7 @@ import { PostModule } from './post/post.module';
 import { BlogModule } from './blog/blog.module';
 import { ConfigModule } from '@nestjs/config';
 import { MyConfigModule } from './config/config.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { MyConfigModule } from './config/config.module';
     // other modules
     DatabaseModule,
     SharedModule,
+    UserModule,
     PostModule,
     BlogModule,
     AuthModule,

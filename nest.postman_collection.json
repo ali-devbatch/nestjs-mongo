@@ -7,197 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "user",
-			"item": [
-				{
-					"name": "sign up",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"ali\",\r\n    \"email\":\"caasds@gmail.com\",\r\n    \"password\":\"123ABCabc..\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/auth/register",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/user?limit=2&page=4",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user"
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "2"
-								},
-								{
-									"key": "sort",
-									"value": "email:desc",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "4"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "find single",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/user/652673f15eaccba9a1cacfde2",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								"652673f15eaccba9a1cacfde2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete user",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/user/652673f15eaccba9a1cacfe2",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								"652673f15eaccba9a1cacfe2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update user",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"aaho\",\r\n            \"email\": \"aliddedededede@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/user/6526740a5eaccba9a1cacfe8",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								"6526740a5eaccba9a1cacfe8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response should have a token\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.environment.set(\"access_token\", jsonData.token);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n \"email\":\"d@gmail.com\",\r\n    \"password\":\"123ABCabc..\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/auth/login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "post",
 			"item": [
 				{
@@ -210,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"edede\",\r\n    \"description\":\"dbdfbbsffs\"\r\n}",
+							"raw": "{\r\n    \"title\":\"eeee\",\r\n    \"description\":\"dbdfbbsffs\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,17 +54,17 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "14",
+									"value": "12",
 									"disabled": true
 								},
 								{
 									"key": "sort",
-									"value": "createdAt:desc",
+									"value": "title:desc",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
 									"disabled": true
 								}
 							]
@@ -269,13 +78,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/post/6527dbf72c00a16624b155d4",
+							"raw": "{{base_url}}/post/652e3e13aa5525117920cad0",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"post",
-								"6527dbf72c00a16624b155d4"
+								"652e3e13aa5525117920cad0"
 							]
 						}
 					},
@@ -397,13 +206,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/blog/6528e641281c871e57c8204c",
+							"raw": "{{base_url}}/blog/652e328106bd56966367414f",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"blog",
-								"6528e641281c871e57c8204c"
+								"652e328106bd56966367414f"
 							]
 						}
 					},
@@ -415,13 +224,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/blog/6528e641281c871e57c8204c",
+							"raw": "{{base_url}}/blog/6531132e0924a324343eb697",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"blog",
-								"6528e641281c871e57c8204c"
+								"6531132e0924a324343eb697"
 							]
 						}
 					},
@@ -475,12 +284,131 @@
 			]
 		},
 		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response should have a token\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"access_token\", jsonData.token);\r",
+									"     });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\":\"bd@gmail.com\",\r\n    \"password\":\"1234A.9090d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"ali\",\r\n    \"email\":\"bd@gmail.com\",\r\n    \"password\":\"1234A.9090d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get all posts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "title:desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

@@ -17,6 +17,7 @@ const post_module_1 = require("./post/post.module");
 const blog_module_1 = require("./blog/blog.module");
 const config_1 = require("@nestjs/config");
 const config_module_1 = require("./config/config.module");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,6 +30,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             database_module_1.DatabaseModule,
             shared_module_1.SharedModule,
+            user_module_1.UserModule,
             post_module_1.PostModule,
             blog_module_1.BlogModule,
             auth_module_1.AuthModule,

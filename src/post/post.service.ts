@@ -35,8 +35,8 @@ export class PostService {
 
   // to get all posts with pagination
   async findAll(queryParams) {
-    const queryBuilder = this.postModel.find(); // Build your query here
-    return this.paginationService.paginate(queryBuilder, queryParams);
+    const resultData = await this.postModel.find(); // Build your query here
+    return this.paginationService.paginate(resultData, queryParams);
   }
 
   // to get post by id and populating this
