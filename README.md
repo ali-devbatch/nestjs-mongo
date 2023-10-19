@@ -79,3 +79,11 @@
 ### use cases (collection references)
  - users collection will get all the posts created by himself/herself
  - blog collection will get the user id that who created that blog
+
+
+
+
+
+# this line will be added in almost every module 
+  - imports: [SharedModule, AuthModule], 
+   

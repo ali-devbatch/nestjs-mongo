@@ -12,40 +12,43 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JwtStrategy = void 0;
+exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
-const passport_1 = require("@nestjs/passport");
 const mongoose_2 = require("mongoose");
-const passport_jwt_1 = require("passport-jwt");
-const user_entity_1 = require("./entities/user.entity");
-let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
-    constructor(userModel, configService) {
-        super({
-            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: configService.get('JWT_SECRET'),
-        });
+const user_entity_1 = require("../auth/entities/user.entity");
+const pagination_service_1 = require("../pagination/pagination.service");
+let UserService = class UserService {
+    constructor(userModel, paginationService) {
         this.userModel = userModel;
-        this.configService = configService;
+        this.paginationService = paginationService;
     }
-    async validate(payload) {
-        const { id } = payload;
-        const user = await this.userModel.findById(id);
-        if (user?.password) {
-            user.password = undefined;
+    async userPosts(userId, queryParams) {
+        try {
+            const user = await this.userModel.findById(userId).populate('posts');
+            if (!user) {
+                return {
+                    status: 404,
+                    message: 'User not found',
+                };
+            }
+            const userPosts = user.posts;
+            return await this.paginationService.paginate(userPosts, queryParams);
         }
-        if (!user) {
-            throw new common_1.UnauthorizedException('Login first to access this endpoint.');
+        catch (error) {
+            return {
+                status: 500,
+                message: 'Internal server error',
+                error: error.message,
+            };
         }
-        return user;
     }
 };
-exports.JwtStrategy = JwtStrategy;
-exports.JwtStrategy = JwtStrategy = __decorate([
+exports.UserService = UserService;
+exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        config_1.ConfigService])
-], JwtStrategy);
-//# sourceMappingURL=jwt.strategy.js.map
+        pagination_service_1.PaginationService])
+], UserService);
+//# sourceMappingURL=user.service.js.map

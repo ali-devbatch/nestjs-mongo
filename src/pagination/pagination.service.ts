@@ -2,56 +2,66 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PaginationService {
-  paginate(queryBuilder, options) {
+  async paginate(resultData, options) {
     const { page = 1, limit = 10, sort } = options;
 
     const skip = (page - 1) * limit;
 
-    // Create a sorting object based on the 'sort' parameter
-    const sorting = {};
+    // Clone the resultData array to ensure we don't modify the original data
+    const clonedResultData = [...resultData];
 
+    // Create a sorting object based on the 'sort' parameter
     if (sort) {
-      // Split the 'sort' parameter by commas to handle multiple sorting criteria
+      const sorting = {};
       const sortFields = sort.split(',');
 
-      // Parse each sorting criterion
       sortFields.forEach((sortField) => {
-        // Split the criterion into field and order (e.g., "field:asc")
         const [field, order] = sortField.split(':');
-
-        // Set the sorting direction (asc or desc) for the field
         sorting[field] = order === 'desc' ? -1 : 1;
       });
 
-      // Apply sorting to the query builder
-      queryBuilder.sort(sorting);
+      // Sort the clonedResultData array
+      clonedResultData.sort((a, b) => {
+        for (const field of Object.keys(sorting)) {
+          const sortOrder = sorting[field];
+          if (a[field] < b[field]) return -1 * sortOrder;
+          if (a[field] > b[field]) return 1 * sortOrder;
+        }
+        return 0;
+      });
     }
 
     // Calculate the total count (for metadata)
-    const totalCountPromise = queryBuilder.clone().count().exec();
+    const total = clonedResultData.length;
 
-    // Execute the query with pagination
-    const resultsPromise = queryBuilder.skip(skip).limit(limit).exec();
+    // Get the paginated data
+    const data = clonedResultData.slice(skip, skip + limit);
 
-    return Promise.all([totalCountPromise, resultsPromise]).then(
-      ([count, results]) => {
-        const total = count;
-        const totalPages = Math.ceil(total / limit);
-        const hasPrevPage = page > 1;
-        const hasNextPage = page < totalPages;
+    const totalPages = Math.ceil(total / limit);
+    const hasPrevPage = page > 1;
+    const hasNextPage = page < totalPages;
+    // Check if the data array is empty
+    if (data.length === 0) {
+      // Handle the case when there are no items in the paginated data
+      return {
+        data: [],
+        status: 404,
+        message: 'no data found',
+      };
+    }
 
-        return {
-          data: results,
-          pagination: {
-            total,
-            limit,
-            page,
-            totalPages,
-            hasPrevPage,
-            hasNextPage,
-          },
-        };
+    return {
+      data: data,
+      status: 200,
+      message: 'data found',
+      pagination: {
+        total,
+        limit,
+        page,
+        totalPages,
+        hasPrevPage,
+        hasNextPage,
       },
-    );
+    };
   }
 }

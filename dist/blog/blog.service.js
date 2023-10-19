@@ -45,8 +45,8 @@ let BlogService = class BlogService {
         }
     }
     async findAll(queryParams) {
-        const queryBuilder = this.blogModel.find();
-        return this.paginationService.paginate(queryBuilder, queryParams);
+        const resultData = await this.blogModel.find();
+        return this.paginationService.paginate(resultData, queryParams);
     }
     async findOne(id) {
         try {

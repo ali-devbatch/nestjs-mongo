@@ -1,5 +1,8 @@
-export declare class PaginationService {
-    paginate(resultData: any, options: any): Promise<{
+import { UserService } from './user.service';
+export declare class UserController {
+    private readonly userService;
+    constructor(userService: UserService);
+    findAll(req: any, queryParams: any): Promise<{
         data: any[];
         status: number;
         message: string;
@@ -16,5 +19,13 @@ export declare class PaginationService {
             hasPrevPage: boolean;
             hasNextPage: boolean;
         };
+    } | {
+        status: number;
+        message: string;
+        error?: undefined;
+    } | {
+        status: number;
+        message: string;
+        error: any;
     }>;
 }

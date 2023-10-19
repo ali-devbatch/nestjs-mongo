@@ -37,8 +37,8 @@ export class BlogService {
 
   // to get all blogs with pagination
   async findAll(queryParams) {
-    const queryBuilder = this.blogModel.find(); // Build your query here
-    return this.paginationService.paginate(queryBuilder, queryParams);
+    const resultData = await this.blogModel.find(); // Build your query here
+    return this.paginationService.paginate(resultData, queryParams);
   }
 
   // to get blog by id
