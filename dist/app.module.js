@@ -18,6 +18,11 @@ const blog_module_1 = require("./blog/blog.module");
 const config_1 = require("@nestjs/config");
 const config_module_1 = require("./config/config.module");
 const user_module_1 = require("./user/user.module");
+const envFilePath = process.env.NODE_ENV === 'production'
+    ? '.production.env'
+    : process.env.NODE_ENV === 'staging'
+        ? '.staging.env'
+        : '.development.env';
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,7 +30,7 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({
-                envFilePath: '.development.env',
+                envFilePath,
                 isGlobal: true,
             }),
             database_module_1.DatabaseModule,
