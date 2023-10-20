@@ -66,29 +66,35 @@ export class AuthService {
   // Other methods (e.g., login) can remain in the AuthService
 
   // login
-  async login(loginDto: LoginDto): Promise<{ token: string }> {
-    const { email, password } = loginDto;
+  async login(loginDto: LoginDto) {
+    try {
+      const { email, password } = loginDto;
 
-    const user = await this.userModel.findOne({ email });
+      const user = await this.userModel.findOne({ email });
 
-    if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
+      if (!user) {
+        throw new UnauthorizedException('Invalid email or password');
+      }
+
+      const isPasswordMatched = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordMatched) {
+        throw new UnauthorizedException('Invalid email or password');
+      }
+
+      const token = this.jwtService.sign({ id: user._id });
+
+      const response = {
+        token: token,
+        status: 200,
+        message: 'Login Successful',
+      };
+
+      return response;
+    } catch (error) {
+      throw new UnauthorizedException(
+        'An error occurred while attempting to log in.',
+      );
     }
-
-    const isPasswordMatched = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordMatched) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
-
-    const token = this.jwtService.sign({ id: user._id });
-
-    const response = {
-      token: token,
-      status: 200,
-      message: 'Login Successful',
-    };
-
-    return response;
   }
 }
