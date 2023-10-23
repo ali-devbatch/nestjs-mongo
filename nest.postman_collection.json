@@ -321,7 +321,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"email\":\"bd@gmail.com\",\r\n    \"password\":\"1234A.9090d\"\r\n}",
+							"raw": "{\r\n   \"email\":\"bd@gmail.com\",\r\n     \"password\":\"1234A.9090d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
