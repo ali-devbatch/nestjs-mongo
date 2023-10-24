@@ -321,7 +321,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"email\":\"bd@gmail.com\",\r\n     \"password\":\"1234A.9090d\"\r\n}",
+							"raw": "{\r\n  \"email\":\"aliofficialdb3594@gmail.com\",\r\n    \"password\":\"1234A.9090d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -348,7 +348,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"ali\",\r\n    \"email\":\"bd@gmail.com\",\r\n    \"password\":\"1234A.9090d\"\r\n}",
+							"raw": "{\r\n    \"name\":\"ali\",\r\n    \"email\":\"aliofficialdb3594@gmail.com\",\r\n    \"password\":\"1234A.9090d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -363,6 +363,61 @@
 							"path": [
 								"auth",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\":\"aliofficialdb3594@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/password-reset",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"password-reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password-change",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\":\"aaaa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/password-reset/4930ede438725d804c66f8f12183a93f8f73a47c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"password-reset",
+								"4930ede438725d804c66f8f12183a93f8f73a47c"
 							]
 						}
 					},
