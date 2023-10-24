@@ -13,6 +13,7 @@ import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signUp.dto';
 import { User } from './entities/user.entity';
 import * as crypto from 'crypto';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,7 @@ export class AuthService {
     @InjectModel(User.name)
     private userModel: Model<User>,
     private jwtService: JwtService,
+    private emailService: EmailService, // Inject the EmailService
   ) {}
 
   // register user
@@ -121,11 +123,20 @@ export class AuthService {
 
       await user.save();
 
+      // subject and html tags to send in email to user
+      const subject = 'Password Reset Request';
+      const htmlContent = `<p>Your Verification Link For [AppName] is <br/><span style="color:green"><b/>
+      <a href="https://github.com/">Click here to reset password</a>
+      </b></span></p>this Link will be <span style="color:red"><b>expire after 1 hour</b></span>`;
+
+      // Send an email to the user
+      await this.emailService.sendEmail(user.email, subject, htmlContent);
+
       // Return the reset token
       return {
         data: resetToken,
         status: 200,
-        message: 'Password reset successful',
+        message: 'Check your Email Address',
       };
     } catch (error) {
       // Handle any unexpected errors
@@ -153,6 +164,13 @@ export class AuthService {
       user.expireToken = undefined;
 
       await user.save();
+
+      // subject and html tags to send in email to user
+      const subject = 'Password Reset Successful';
+      const htmlContent = `<p>Your  <span style="color:red"> password </span>has been changed against this email : <span style="color:red">${user.email} </span></p>`;
+
+      // Send an email to the user
+      await this.emailService.sendEmail(user.email, subject, htmlContent);
 
       // Return a success message
       return {
