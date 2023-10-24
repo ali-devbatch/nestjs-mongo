@@ -13,6 +13,12 @@ export class User {
   @Prop()
   password: string;
 
+  @Prop()
+  resetToken: string;
+
+  @Prop()
+  expireToken: Date;
+
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Post' }] }) // Reference to the User entity
   posts: PostDocument[];
 }

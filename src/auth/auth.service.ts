@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -11,6 +12,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signUp.dto';
 import { User } from './entities/user.entity';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -41,6 +43,8 @@ export class AuthService {
       email,
       name,
       password: hashedPassword,
+      resetToken: '',
+      expireToken: '',
     });
 
     try {
@@ -96,5 +100,75 @@ export class AuthService {
         'An error occurred while attempting to log in.',
       );
     }
+  }
+
+  // Request password reset
+  async requestPasswordReset(email: string) {
+    try {
+      // Find the user by email
+      const user = await this.userModel.findOne({ email });
+
+      if (!user) {
+        throw new UnauthorizedException('No user with this email exists.');
+      }
+
+      // Generate a unique reset token using crypto
+      const resetToken = this.generateUniqueResetToken();
+
+      // Set the resetToken and expiration time
+      user.resetToken = resetToken;
+      user.expireToken = new Date(Date.now() + 3600000); // Token expires in 1 hour
+
+      await user.save();
+
+      // Return the reset token
+      return {
+        data: resetToken,
+        status: 200,
+        message: 'Password reset successful',
+      };
+    } catch (error) {
+      // Handle any unexpected errors
+      throw new InternalServerErrorException('Password reset request failed');
+    }
+  }
+
+  // Reset the user's password
+  async resetPassword(resetToken: string, newPassword: string) {
+    try {
+      // Verify the reset token and check its expiration
+      const user = await this.userModel.findOne({
+        resetToken,
+        expireToken: { $gt: new Date() },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('Invalid or expired reset token');
+      }
+
+      // Update the user's password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      user.resetToken = undefined;
+      user.expireToken = undefined;
+
+      await user.save();
+
+      // Return a success message
+      return {
+        status: 200,
+        message: 'Password reset successful',
+      };
+    } catch (error) {
+      // Handle any unexpected errors
+      throw new InternalServerErrorException('Password reset failed');
+    }
+  }
+
+  // Generate a unique password reset token with crypto
+  private generateUniqueResetToken() {
+    const tokenLength = 20; // Adjust the desired token length
+    const resetToken = crypto.randomBytes(tokenLength).toString('hex');
+    return resetToken;
   }
 }
