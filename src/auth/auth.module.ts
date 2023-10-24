@@ -7,6 +7,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
 import { MyConfigModule } from 'src/config/config.module';
+import { EmailService } from 'src/email/email.service';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { MyConfigModule } from 'src/config/config.module';
     SharedModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, EmailService],
   exports: [PassportModule],
 })
 export class AuthModule {
