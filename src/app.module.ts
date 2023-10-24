@@ -9,6 +9,7 @@ import { BlogModule } from './blog/blog.module';
 import { ConfigModule } from '@nestjs/config';
 import { MyConfigModule } from './config/config.module';
 import { UserModule } from './user/user.module';
+import { EmailService } from './email/email.service';
 
 // to add env variables dynamically
 const envFilePath =
@@ -26,16 +27,16 @@ const envFilePath =
       isGlobal: true,
     }),
     // other modules
+    AuthModule,
     DatabaseModule,
     SharedModule,
     UserModule,
     PostModule,
     BlogModule,
-    AuthModule,
     ConfigModule,
     MyConfigModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, EmailService],
 })
 export class AppModule {}
